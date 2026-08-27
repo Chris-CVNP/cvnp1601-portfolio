@@ -1,2 +1,3 @@
-# cvnp1601-portfolio
-Linux Administration coursework and evidence — CVNP1601
+# CVNP1601 Linux Administration Portfolio
+
+Coursework and evidence for CVNP1601. One folder per week.
