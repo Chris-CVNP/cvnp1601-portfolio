@@ -1,0 +1,14 @@
+2026-09-01T06:02:32.148243+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-01T06:02:38.240754+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-01T06:02:49.018624+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-01T06:02:56.068307+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-01T06:03:02.624131+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-01T06:03:11.556446+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-01T06:03:17.793414+00:00 1601 apt.systemd.daily[12674]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=12674) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:43:09.985848+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:43:35.698250+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:43:42.301464+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:43:49.180444+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:44:05.464858+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:44:16.737513+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.
+2026-09-02T06:44:23.955172+00:00 1601 apt.systemd.daily[17363]: /usr/bin/unattended-upgrade:567: DeprecationWarning: This process (pid=17363) is multi-threaded, use of fork() may lead to deadlocks in the child.

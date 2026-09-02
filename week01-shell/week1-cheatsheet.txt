@@ -1,0 +1,93 @@
+CVNP1601 Week 1 Command Cheat Sheet
+
+pwd
+  Flags: -P prints the physical path with symlinks resolved. -L prints the logical path including symlinks.
+  Example: pwd
+  Risk/note: Run this before any command that writes, deletes, or overwrites. The same command run from a different directory produces a different result, and a screenshot with no visible path cannot be trusted by a reviewer.
+
+ls
+  Flags: -l long format with permissions, owner, group, size and timestamp. -h human readable sizes. -a includes hidden dotfiles. -t sorts newest first. -R recurses into subdirectories.
+  Example: ls -lh /var/log
+  Risk/note: Plain ls hides dotfiles, so a config or key file can sit in a directory that looks empty. ls -lht /tmp is worth checking during an incident because /tmp is world writable and often overlooked.
+
+cd
+  Flags: No traditional flags. cd .. moves up one level. cd - returns to the previous directory and prints the path it jumped to. cd ~ goes to your home directory from anywhere.
+  Example: cd /var/log
+  Risk/note: An absolute path starts with a slash and works from anywhere. A relative path resolves from your current location, so cd etc from /home fails because /home/etc does not exist. That is a path type problem, not a typo and not a permissions problem.
+
+find
+  Flags: -name matches a filename pattern and is case sensitive. -iname is the case insensitive form. -type f limits results to files. -type d limits to directories. -mtime filters by modification time. -size filters by file size.
+  Example: find /etc -name "*.conf" 2>/dev/null | head -10
+  Risk/note: Searching from the filesystem root walks everything and is slow on a busy server. Start from the narrowest directory that could hold the file. Be especially careful combining find with -delete.
+
+grep
+  Flags: -i case insensitive so error, Error and ERROR all match. -r recursive through a directory. -v inverts the match. -c prints a count instead of the lines. -n shows line numbers.
+  Example: grep -i "error" /var/log/syslog | head -20
+  Risk/note: Piping grep into a single arrow overwrites the destination file. Use the double arrow to preserve previous output. Note that -c counts matching lines, not total matches, so a line with three occurrences still counts as one.
+
+head
+  Flags: -n takes a line count, as in head -n 20. The shorthand head -20 does the same. Default is 10 lines.
+  Example: grep -i "error" /var/log/syslog | head -20
+  Risk/note: head shows only the top of the output, which can make a large result set look small. Confirm the real total with wc -l before reporting a number to anyone.
+
+wc
+  Flags: -l counts lines. -w counts words. -c counts bytes. -m counts characters.
+  Example: grep -i "error" /var/log/syslog | wc -l
+  Risk/note: wc counts whatever reaches it through the pipe, not what is in the original file. Listing a directory then piping through grep then wc counts matching filenames, not log entries inside any file. Describe the number by what the command immediately before it produced.
+
+pipe |
+  Flags: None. Sends the stdout of the command on the left into the stdin of the command on the right, and can be chained across several commands.
+  Example: grep -i "error" /var/log/syslog | wc -l
+  Risk/note: A pipe carries stdout only. Error messages travel on stderr and bypass the pipe, so they still print to the screen. Trace every stage before describing the output, because each stage changes what the next one is counting.
+
+redirect >
+  Flags: None. Sends stdout to a file, creating it if it does not exist and replacing its entire contents if it does.
+  Example: grep -i "error" /var/log/syslog > errors.txt
+  Risk/note: There is no undo, no warning, and no recycle bin. Running it twice against the same evidence file destroys the first capture silently. Use it only for the first command of a collection, then check the file with wc -l.
+
+append >>
+  Flags: None. Sends stdout to the end of a file without touching existing content, and creates the file if it does not exist.
+  Example: grep -i "warning" /var/log/syslog >> errors.txt
+  Risk/note: This is the safe default once an evidence file exists. Verify with wc -l after each append and confirm the count is climbing rather than resetting. A count that stayed flat or dropped means a single arrow slipped in somewhere.
+
+stderr suppression 2>/dev/null
+  Flags: The 2 is the file descriptor for stderr. Descriptor 1 is stdout and 0 is stdin. The null device discards anything written to it.
+  Example: find /etc -name "*.conf" 2>/dev/null
+  Risk/note: This hides every error the command produces, including real ones. Use it once you know the noise is expected permission messages. Leave it off while diagnosing an unfamiliar failure. Permission denied on find usually means the system is protecting a sensitive path, which is working as intended.
+
+Additional commands and symbols used this week
+
+ssh
+  Flags: -p specifies a nonstandard port. -i specifies an identity key file.
+  Example: ssh user@server
+  Risk/note: Most production Linux systems give you no desktop, no file manager, and no search bar. The shell is the interface, so staying oriented inside it is the first professional skill.
+
+cat
+  Flags: -n numbers output lines. -A shows nonprinting characters.
+  Example: cat week1-cheatsheet.txt
+  Risk/note: cat prints an entire file to the screen with no paging, so running it on a large log floods the terminal. Use head or grep to filter first.
+
+sudo
+  Flags: -u runs as a specified user. -i starts a login shell.
+  Example: sudo systemctl status ssh
+  Risk/note: Do not reach for sudo just to make Permission denied messages disappear. That hides them for the wrong reason and bypasses the point, which is understanding that stdout and stderr are separate streams.
+
+rm
+  Flags: -r recursive. -f force with no prompt. -i prompts before each removal.
+  Example: rm errors.txt
+  Risk/note: There is no recycle bin. A misplaced rm in the wrong directory is unrecoverable, which is why pwd comes first. Combining -r and -f removes an entire tree with no confirmation.
+
+2>
+  Flags: None. Redirects stderr only, leaving stdout untouched.
+  Example: find /etc -name "*.conf" 2>errors-only.txt
+  Risk/note: Useful when you want to capture the error stream separately for review rather than discarding it. Discarding with 2>/dev/null throws the errors away permanently.
+
+/dev/null
+  Flags: None. A special device file that silently discards anything written to it.
+  Example: find /etc -name "*.conf" 2>/dev/null
+  Risk/note: Known as the bit bucket. Anything sent here is gone with no record, so never redirect output you have not already reviewed.
+
+grep -c
+  Flags: -c counts matching lines in a file instead of printing them.
+  Example: grep -c "Failed password" /var/log/auth.log
+  Risk/note: This counts real events inside a file. Counting filenames with ls piped into grep and wc is a different measurement entirely. Reporting one as the other misleads whoever receives your escalation.
