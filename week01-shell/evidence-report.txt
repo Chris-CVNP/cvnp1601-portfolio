@@ -1,0 +1,43 @@
+=== CVNP1601-W01 Evidence Report ===
+Generated : 2026-09-02 22:49:09
+Host      : 1601
+Week      : 01
+Folder    : /home/steelbyte/cvnp1601-portfolio/week01-shell
+
+[SHELL & USER CONTEXT]
+  user  : steelbyte
+  id    : uid=1000(steelbyte) gid=1000(steelbyte) groups=1000(steelbyte),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),101(lxd)
+  shell : /bin/bash
+  pwd   : /home/steelbyte/cvnp1601-portfolio/week01-shell
+
+[FILESYSTEM ORIENTATION — key FHS directories]
+  drwxr-xr-x 110 root root 4096 Sep  2 06:44 /etc
+  drwxrwxr-x 10 root syslog 4096 Sep  1 00:00 /var/log
+  drwxr-xr-x 3 root root 4096 Aug 25 16:48 /home
+  drwxr-xr-x 2 root root 36864 Sep  2 06:44 /usr/bin
+  drwxrwxrwt 13 root root 4096 Sep  2 22:31 /tmp
+
+[LOG DIRECTORY SAMPLE — /var/log (first 10 entries)]
+  total 3.3M
+  -rw-r--r--  1 root      root             344 Sep  2 06:43 alternatives.log
+  -rw-r--r--  1 root      root             44K Aug 26 19:28 alternatives.log.1
+  -rw-r-----  1 root      adm                0 Aug 25 16:56 apport.log
+  drwxr-xr-x  2 root      root            4.0K Sep  2 06:44 apt
+  -rw-r-----  1 syslog    adm             158K Sep  2 22:47 auth.log
+  -rw-r-----  1 syslog    adm             155K Aug 29 23:59 auth.log.1
+  -rw-r--r--  1 root      root             60K Feb 10  2026 bootstrap.log
+  -rw-rw----  1 root      utmp               0 Sep  1 00:00 btmp
+  -rw-rw----  1 root      utmp            1.2K Aug 26 19:11 btmp.1
+
+[REQUIRED FILES]
+  README.md : FOUND (720 bytes)
+  week1-cheatsheet.txt : FOUND (6988 bytes)
+  errors.txt : FOUND (2954 bytes)
+  tech-lead-note.md : FOUND (1734 bytes)
+  troubleshooting-narrative.md : FOUND (3959 bytes)
+  week1-diagnosis.md : FOUND (5978 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week01-shell/.
