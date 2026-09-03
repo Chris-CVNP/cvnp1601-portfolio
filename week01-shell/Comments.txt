@@ -1,0 +1,41 @@
+CVNP1601 Week 1 Comments
+
+TASK 1: SYSTEM ORIENTATION
+
+Five key directories:
+
+/etc holds host specific system configuration files for the operating system and installed services. No binaries, no user data, and no logs.
+
+/var/log holds the system and application log files. It sits under /var because logging data is variable, meaning it changes during normal operation.
+
+/home holds the home directories for each user account, including their saved files and personal settings.
+
+/usr/bin holds non essential command binaries for all users. Essential binaries needed to boot or repair the system live in /bin and /sbin instead.
+
+/tmp holds temporary files. Programs cannot assume anything in /tmp survives between runs, and on Ubuntu it clears on reboot.
+
+Security note:
+
+/etc is where you check configuration when a service fails after a change. /var/log is the first stop for what actually happened, since it records logins, failures, and privilege changes. /home holds user files and shell history. /usr/bin holds the binaries themselves. /tmp is world writable, which makes it worth checking during an incident because anyone can drop a file there and it is easy to overlook.
+
+TASK 2: NAVIGATION DRILL
+
+Why cd etc fails from /home:
+
+An absolute path begins with a slash and will always work regardless of where you are currently located; therefore, when you run cd etc from /home it fails because /home/etc doesn't exist. This is a path-type issue, not a typo or a permissions issue.
+
+Three log files and their sizes from ls -lh /var/log:
+
+auth.log 149K, Sep 2 18:55
+dpkg.log 31K, Sep 2 06:44
+alternatives.log.1 44K, Aug 26 19:28
+
+The most important log file during an incident is auth.log (since it logs all login attempts and privilege changes).
+
+TASK 3: FILE DISCOVERY WITH FIND
+
+The "2" in "2>/dev/null" is a file descriptor for stderr. File descriptors have these meanings: Descriptor 1 = stdout, Descriptor 0 = stdin. Any data sent to the null device gets discarded. Therefore, by sending stderr to the null device using this command line redirection syntax, we can hide the error messages produced by the command, but still get its results. If you're going to be using this command and expect some of the output to include "permission denied", then it's safe to redirect stderr to /dev/null. But don't do it while you're still diagnosing an unfamiliar failure, because you would be hiding the real errors along with the expected ones. If find reports permission denied, it almost certainly means the system has protected a sensitive path. Find does not stop when that happens. It skips the directory it cannot read and returns everything else it found, which is the system working as intended.
+
+TASK 4: GREP PIPELINE
+
+> empties the destination file and then writes the new output into it. Which is an issue when you need to be able to reference back to that information or you need it to document a breach or error. Whereas >> adds to the end of the current file, "appending". Allowing you to provide information as well as preserve the evidence file. With > there is no undo or back button to fix your mistake and you will not get a popup or a line that asks if you are sure.

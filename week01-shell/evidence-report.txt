@@ -1,5 +1,5 @@
 === CVNP1601-W01 Evidence Report ===
-Generated : 2026-09-02 22:49:09
+Generated : 2026-09-03 19:16:21
 Host      : 1601
 Week      : 01
 Folder    : /home/steelbyte/cvnp1601-portfolio/week01-shell
@@ -15,18 +15,18 @@ Folder    : /home/steelbyte/cvnp1601-portfolio/week01-shell
   drwxrwxr-x 10 root syslog 4096 Sep  1 00:00 /var/log
   drwxr-xr-x 3 root root 4096 Aug 25 16:48 /home
   drwxr-xr-x 2 root root 36864 Sep  2 06:44 /usr/bin
-  drwxrwxrwt 13 root root 4096 Sep  2 22:31 /tmp
+  drwxrwxrwt 13 root root 4096 Sep  3 18:40 /tmp
 
 [LOG DIRECTORY SAMPLE — /var/log (first 10 entries)]
-  total 3.3M
+  total 3.5M
   -rw-r--r--  1 root      root             344 Sep  2 06:43 alternatives.log
   -rw-r--r--  1 root      root             44K Aug 26 19:28 alternatives.log.1
   -rw-r-----  1 root      adm                0 Aug 25 16:56 apport.log
   drwxr-xr-x  2 root      root            4.0K Sep  2 06:44 apt
-  -rw-r-----  1 syslog    adm             158K Sep  2 22:47 auth.log
+  -rw-r-----  1 syslog    adm             192K Sep  3 19:15 auth.log
   -rw-r-----  1 syslog    adm             155K Aug 29 23:59 auth.log.1
   -rw-r--r--  1 root      root             60K Feb 10  2026 bootstrap.log
-  -rw-rw----  1 root      utmp               0 Sep  1 00:00 btmp
+  -rw-rw----  1 root      utmp             384 Sep  3 19:13 btmp
   -rw-rw----  1 root      utmp            1.2K Aug 26 19:11 btmp.1
 
 [REQUIRED FILES]
