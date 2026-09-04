@@ -1,0 +1,9 @@
+# Technical Lead Note
+
+I edited server-note.txt using vim and quick-edit.txt in nano. After saving both files I used cat to verify each of their contents, to be certain they represented my original intentions. When I revisited server-note.txt during my second round of edits I intentionally put something incorrect into the file and exited vim with ':q!'. Cat then confirmed that nothing had changed since the last time I wrote the file.
+
+The SSH access report shows eight total connections, all as Accepted publickey entries for the user steelbyte from one single internal IP address between September 2nd and September 4th. The initial version of this report consisted of eleven lines. Three of those lines were entries from the sudo audit record that also included a match for the search term. The reason why these three entries are present is simply because the searched-for terms were part of the commands being logged. Filtering on sshd before matching eliminates them. The updated total of eight matches an independent total I previously ran.
+
+When I read the current sshd_config there were eight directives defined. Directives that define PermitRootLogin no, and an Include directive defining a drop-in directory. There was no definition of PasswordAuthentication anywhere in the sshd_config file. However, a cloud-init drop-in had defined it as enabled when the system was provisioned. I went ahead and disabled it, validated that key-based authentication continued to work, and also validated this with sshd -T instead of just validating against the contents of the file.
+
+It is important to review both the effective sshd_config and to validate information via logs, because the commented file only shows what could be set, and a single config file does not show what is actually in effect once drop-ins are included.

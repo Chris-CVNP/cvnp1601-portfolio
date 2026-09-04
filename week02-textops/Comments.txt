@@ -1,0 +1,21 @@
+CVNP1601 Week 2 Written Explanations
+
+Task 1: what :q! does
+
+:q! exits without saving and could be used in a few different cases. If you accidentally erase something you should not have, or added a large amount of text in the wrong spot, it might be faster to exit without saving and start over than to undo it correctly. The file stays exactly as it was at the last write, so anything already saved is kept and only the unsaved changes are discarded. In a way it's like you were never there.
+
+Task 2: when nano is the better choice than vim
+
+Nano is a better choice when you need to do a small, quick addition or removal. It has no modes to switch between and lists its shortcuts at the bottom of the screen.
+
+Task 3: the double grep -v pipeline
+
+The "^#" removes all lines that start with #, which are comments, and the "^$" removes any empty lines. What is left is only the directives sshd actually loads from that file. So basically what the command is saying is show me everything that is running inside of the /etc/ssh/sshd_config file and do not post any empty lines or don't show me anything that starts with # or has blank lines.
+
+Task 4: what -F: does and field counting logic
+
+-F is a separator, it is used to separate things. The character after it is the separation point, so -F: tells awk to split every line wherever there is a colon. Without -F, awk splits on spaces unless told otherwise. To find the shell field I counted the colons in the root line from /etc/passwd: root is $1, x is $2, 0 is $3, 0 is $4, root is $5, /root is $6, and /bin/bash is $7. That makes seven fields, with the shell last, which is why the shell column is $7.
+
+Task 5: field count for one raw auth.log line
+
+Counting the space separated fields on one line from my auth.log, $1 is the timestamp, $2 is the hostname, $3 is the process, $4 is Accepted, $5 is publickey, $6 is for, $7 is the username, $8 is from, and $9 is the source IP. The username is $7 and the source IP is $9. Using $9 as the username would have put the source IP in the username column.
