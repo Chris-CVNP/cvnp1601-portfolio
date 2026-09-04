@@ -1,0 +1,41 @@
+=== CVNP1601-W02 Evidence Report ===
+Generated : 2026-09-04 23:04:55
+Host      : 1601
+Week      : 02
+Folder    : /home/steelbyte/cvnp1601-portfolio/week02-textops
+
+[EDITOR AVAILABILITY]
+  vim : /usr/bin/vim
+  nano : /usr/bin/nano
+
+[ACTIVE SSHD_CONFIG LINES — grep -v '^#' | grep -v '^$']
+  Include /etc/ssh/sshd_config.d/*.conf
+  PermitRootLogin no
+  KbdInteractiveAuthentication no
+  UsePAM yes
+  X11Forwarding yes
+  PrintMotd no
+  AcceptEnv LANG LC_*
+  Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+[/ETC/PASSWD FIELD SAMPLE — awk -F: '{print $1, $7}' (first 5)]
+  root /bin/bash
+  daemon /usr/sbin/nologin
+  bin /usr/sbin/nologin
+  sys /usr/sbin/nologin
+  sync /bin/sync
+
+[REQUIRED FILES]
+  README.md : FOUND (1319 bytes)
+  server-note.txt : FOUND (85 bytes)
+  quick-edit.txt : FOUND (47 bytes)
+  access-report.txt : FOUND (384 bytes)
+  week1-cheatsheet.txt : FOUND (11061 bytes)
+  tech-lead-note.md : FOUND (1829 bytes)
+  troubleshooting-narrative.md : FOUND (3337 bytes)
+  week2-diagnosis.md : FOUND (2579 bytes)
+
+[SECRET SCAN]
+  WARNING: possible secret/token pattern found in Comments.txt — review before committing (pattern: passwd[[:space:]]*[:=][[:space:]]*[^[:space:]]+)
+
+Commit this file (evidence-report.txt) to your GitHub repo under week02-textops/.
