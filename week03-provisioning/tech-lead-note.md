@@ -1,0 +1,7 @@
+# Technical Lead Note
+
+I used useradd -m -s /bin/bash to create devuser. It gave him the uid of 1001, gid of 1001, the home directory at /home/devuser, and set /bin/bash as his login shell. I created the developers group using gid 1002 and added devuser with usermod -aG. To verify that he had been added to the group, I compared id devuser before and after I changed him.
+
+I wrote my sudo permission using visudo as devuser ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx. I used this path because which systemctl told me where this system's systemctl was, instead of the /bin/systemctl example given in the guide. When I tested as devuser, the restart did run without prompting me for a password. Using systemctl status, I verified that the service restarted successfully. The stop command, however, asked me for a password when I tried to enter it. Once I entered my password and authenticated properly, I got a message saying that I wasn't allowed to do what I wanted to do. This means that the policy rules are in place and they aren't failing just because you can't log into your account.
+
+When I ran sudo -l as devuser, I could see that there was one command he was allowed to run but that there were no other commands he was allowed to run. The cleanup is now finished; I used visudo to remove the rule first, followed by userdel -r to delete all files associated with the account, and finally deleting both groups.

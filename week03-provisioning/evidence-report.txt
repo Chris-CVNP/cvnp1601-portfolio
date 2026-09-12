@@ -1,0 +1,31 @@
+=== CVNP1601-W03 Evidence Report ===
+Generated : 2026-09-12 03:41:07
+Host      : 1601
+Week      : 03
+Folder    : /home/steelbyte/cvnp1601-portfolio/week03-provisioning
+
+[DEVUSER ACCOUNT STATE — id devuser]
+  uid=1001(devuser) gid=1001(devuser) groups=1001(devuser),1002(developers)
+
+[DEVELOPERS GROUP — grep developers /etc/group]
+  developers:x:1002:devuser
+
+[SUDO -l FOR DEVUSER]
+  Matching Defaults entries for devuser on 1601:
+      env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+  
+  User devuser may run the following commands on 1601:
+      (ALL) NOPASSWD: /usr/bin/systemctl restart nginx
+
+[REQUIRED FILES]
+  README.md : FOUND (10095 bytes)
+  provisioning-summary.md : FOUND (2212 bytes)
+  tech-lead-note.md : FOUND (1429 bytes)
+  troubleshooting-narrative.md : FOUND (2944 bytes)
+  week3-diagnosis.md : FOUND (4113 bytes)
+
+[SECRET SCAN]
+  WARNING: possible secret/token pattern found in provisioning-summary.md — review before committing (pattern: passwd[[:space:]]*[:=][[:space:]]*[^[:space:]]+)
+  WARNING: possible secret/token pattern found in tech-lead-note.md — review before committing (pattern: passwd[[:space:]]*[:=][[:space:]]*[^[:space:]]+)
+
+Commit this file (evidence-report.txt) to your GitHub repo under week03-provisioning/.
