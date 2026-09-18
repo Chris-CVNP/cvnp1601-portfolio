@@ -1,0 +1,56 @@
+# file: project
+# owner: steelbyte
+# group: developers
+# flags: -st
+user::rwx
+group::rwx
+other::r-x
+
+# file: project
+# owner: steelbyte
+# group: developers
+# flags: -st
+user::rwx
+user:carlos:r-x
+group::rwx
+mask::rwx
+other::r-x
+
+# file: project
+# owner: steelbyte
+# group: developers
+# flags: -st
+user::rwx
+user:carlos:r-x
+group::rwx
+mask::rwx
+other::r-x
+default:user::rwx
+default:group::rwx
+default:group:developers:rw-
+default:mask::rwx
+default:other::r-x
+
+# file: project/acl-test.txt
+# owner: steelbyte
+# group: developers
+user::rw-
+group::rwx	#effective:rw-
+group:developers:rw-
+mask::rw-
+other::r--
+
+# file: project
+# owner: steelbyte
+# group: developers
+# flags: -st
+user::rwx
+group::rwx
+mask::rwx
+other::r-x
+default:user::rwx
+default:group::rwx
+default:group:developers:rw-
+default:mask::rwx
+default:other::r-x
+

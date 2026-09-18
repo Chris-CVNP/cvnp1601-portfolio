@@ -1,0 +1,24 @@
+-rw-r-----  1 root shadow      1018 Sep 17 22:45 /etc/shadow
+-rwsr-xr-x  1 root root       64152 May 30  2024 /usr/bin/passwd
+
+/project:
+total 8
+drwxr-xr-x  2 root developers 4096 Sep 17 22:45 .
+drwxr-xr-x 24 root root       4096 Sep 17 22:45 ..
+
+/tmp:
+total 52
+drwxrwxrwt 13 root root 4096 Sep 17 22:45 .
+drwxr-xr-x 24 root root 4096 Sep 17 22:45 ..
+drwxrwxrwt  2 root root 4096 Sep 14 23:58 .font-unix
+drwxrwxrwt  2 root root 4096 Sep 14 23:58 .ICE-unix
+drwx------  2 root root 4096 Sep 14 23:58 snap-private-tmp
+drwx------  3 root root 4096 Sep 16 06:13 systemd-private-2e12c47e65a44336a81efea046a4d518-ModemManager.service-5A3Kc2
+drwx------  3 root root 4096 Sep 16 06:13 systemd-private-2e12c47e65a44336a81efea046a4d518-polkit.service-bto4H2
+drwx------  3 root root 4096 Sep 14 23:58 systemd-private-2e12c47e65a44336a81efea046a4d518-systemd-logind.service-z52KjT
+drwx------  3 root root 4096 Sep 14 23:58 systemd-private-2e12c47e65a44336a81efea046a4d518-systemd-resolved.service-hS05Z3
+drwx------  3 root root 4096 Sep 14 23:58 systemd-private-2e12c47e65a44336a81efea046a4d518-systemd-timesyncd.service-xUY2NU
+drwx------  3 root root 4096 Sep 15 00:30 systemd-private-2e12c47e65a44336a81efea046a4d518-upower.service-ZDs0uJ
+drwxrwxrwt  2 root root 4096 Sep 14 23:58 .X11-unix
+drwxrwxrwt  2 root root 4096 Sep 14 23:58 .XIM-unix
+0002
