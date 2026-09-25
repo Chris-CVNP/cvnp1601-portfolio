@@ -1,0 +1,33 @@
+=== CVNP1601-W05 Evidence Report ===
+Generated : 2026-09-25 22:36:27
+Host      : 1601
+Week      : 05
+Folder    : /home/steelbyte/cvnp1601-portfolio/week05-service-setup
+
+[NGINX PACKAGE STATE — dpkg -l nginx]
+  Desired=Unknown/Install/Remove/Purge/Hold
+  | Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+  |/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+  ||/ Name           Version            Architecture Description
+  +++-==============-==================-============-==========================================
+  ii  nginx          1.24.0-2ubuntu7.18 amd64        small, powerful, scalable web/proxy server
+
+[NGINX SERVICE STATE]
+  is-active  : active
+  is-enabled : enabled
+
+[SERVER-SETUP.SH — ls -la]
+  -rwxrwxr-x 1 steelbyte steelbyte 1536 Sep 25 22:16 /home/steelbyte/cvnp1601-portfolio/week05-service-setup/server-setup.sh
+
+[REQUIRED FILES]
+  README.md : FOUND (11272 bytes)
+  server-setup.sh : FOUND (1536 bytes)
+  week1-cheatsheet.txt : FOUND (15389 bytes)
+  tech-lead-note.md : FOUND (1614 bytes)
+  troubleshooting-narrative.md : FOUND (2029 bytes)
+  week5-diagnosis.md : FOUND (2461 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week05-service-setup/.
