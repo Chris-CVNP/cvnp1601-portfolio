@@ -1,0 +1,29 @@
+=== CVNP1601-W06 Evidence Report ===
+Generated : 2026-10-02 02:54:30
+Host      : 1601
+Week      : 06
+Folder    : /home/steelbyte/cvnp1601-portfolio/week06-backup-script
+
+[BACKUP_ETC.SH SYNTAX — bash -n]
+  Syntax OK
+
+[BACKUP_ETC.SH PERMISSIONS — ls -la]
+  -rwxrwxr-x 1 steelbyte steelbyte 1924 Oct  2 02:35 /home/steelbyte/cvnp1601-portfolio/week06-backup-script/backup_etc.sh
+
+[GIT LOG — ~/scripts]
+  203ac24 Add verification output for archive path
+  8047be4 Create backup script with logging
+  Commit count: 2
+
+[REQUIRED FILES]
+  README.md : FOUND (10876 bytes)
+  backup_etc.sh : FOUND (1924 bytes)
+  week1-cheatsheet.txt : FOUND (18953 bytes)
+  tech-lead-note.md : FOUND (1320 bytes)
+  troubleshooting-narrative.md : FOUND (2030 bytes)
+  week6-diagnosis.md : FOUND (3034 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week06-backup-script/.

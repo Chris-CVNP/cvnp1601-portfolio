@@ -1,0 +1,234 @@
+CVNP1601 Week 1 Command Cheat Sheet
+
+pwd
+  Flags: -P prints the physical path with symlinks resolved. -L prints the logical path including symlinks.
+  Example: pwd
+  Risk/note: Run this before any command that writes, deletes, or overwrites. The same command run from a different directory produces a different result, and a screenshot with no visible path cannot be trusted by a reviewer.
+
+ls
+  Flags: -l long format with permissions, owner, group, size and timestamp. -h human readable sizes. -a includes hidden dotfiles. -t sorts newest first. -R recurses into subdirectories.
+  Example: ls -lh /var/log
+  Risk/note: Plain ls hides dotfiles, so a config or key file can sit in a directory that looks empty. ls -lht /tmp is worth checking during an incident because /tmp is world writable and often overlooked.
+
+cd
+  Flags: No traditional flags. cd .. moves up one level. cd - returns to the previous directory and prints the path it jumped to. cd ~ goes to your home directory from anywhere.
+  Example: cd /var/log
+  Risk/note: An absolute path starts with a slash and works from anywhere. A relative path resolves from your current location, so cd etc from /home fails because /home/etc does not exist. That is a path type problem, not a typo and not a permissions problem.
+
+find
+  Flags: -name matches a filename pattern and is case sensitive. -iname is the case insensitive form. -type f limits results to files. -type d limits to directories. -mtime filters by modification time. -size filters by file size.
+  Example: find /etc -name "*.conf" 2>/dev/null | head -10
+  Risk/note: Searching from the filesystem root walks everything and is slow on a busy server. Start from the narrowest directory that could hold the file. Be especially careful combining find with -delete.
+
+grep
+  Flags: -i case insensitive so error, Error and ERROR all match. -r recursive through a directory. -v inverts the match. -c prints a count instead of the lines. -n shows line numbers.
+  Example: grep -i "error" /var/log/syslog | head -20
+  Risk/note: Piping grep into a single arrow overwrites the destination file. Use the double arrow to preserve previous output. Note that -c counts matching lines, not total matches, so a line with three occurrences still counts as one.
+
+head
+  Flags: -n takes a line count, as in head -n 20. The shorthand head -20 does the same. Default is 10 lines.
+  Example: grep -i "error" /var/log/syslog | head -20
+  Risk/note: head shows only the top of the output, which can make a large result set look small. Confirm the real total with wc -l before reporting a number to anyone.
+
+wc
+  Flags: -l counts lines. -w counts words. -c counts bytes. -m counts characters.
+  Example: grep -i "error" /var/log/syslog | wc -l
+  Risk/note: wc counts whatever reaches it through the pipe, not what is in the original file. Listing a directory then piping through grep then wc counts matching filenames, not log entries inside any file. Describe the number by what the command immediately before it produced.
+
+pipe |
+  Flags: None. Sends the stdout of the command on the left into the stdin of the command on the right, and can be chained across several commands.
+  Example: grep -i "error" /var/log/syslog | wc -l
+  Risk/note: A pipe carries stdout only. Error messages travel on stderr and bypass the pipe, so they still print to the screen. Trace every stage before describing the output, because each stage changes what the next one is counting.
+
+redirect >
+  Flags: None. Sends stdout to a file, creating it if it does not exist and replacing its entire contents if it does.
+  Example: grep -i "error" /var/log/syslog > errors.txt
+  Risk/note: There is no undo, no warning, and no recycle bin. Running it twice against the same evidence file destroys the first capture silently. Use it only for the first command of a collection, then check the file with wc -l.
+
+append >>
+  Flags: None. Sends stdout to the end of a file without touching existing content, and creates the file if it does not exist.
+  Example: grep -i "warning" /var/log/syslog >> errors.txt
+  Risk/note: This is the safe default once an evidence file exists. Verify with wc -l after each append and confirm the count is climbing rather than resetting. A count that stayed flat or dropped means a single arrow slipped in somewhere.
+
+stderr suppression 2>/dev/null
+  Flags: The 2 is the file descriptor for stderr. Descriptor 1 is stdout and 0 is stdin. The null device discards anything written to it.
+  Example: find /etc -name "*.conf" 2>/dev/null
+  Risk/note: This hides every error the command produces, including real ones. Use it once you know the noise is expected permission messages. Leave it off while diagnosing an unfamiliar failure. Permission denied on find usually means the system is protecting a sensitive path, which is working as intended.
+
+Additional commands and symbols used this week
+
+ssh
+  Flags: -p specifies a nonstandard port. -i specifies an identity key file.
+  Example: ssh user@server
+  Risk/note: Most production Linux systems give you no desktop, no file manager, and no search bar. The shell is the interface, so staying oriented inside it is the first professional skill.
+
+cat
+  Flags: -n numbers output lines. -A shows nonprinting characters.
+  Example: cat week1-cheatsheet.txt
+  Risk/note: cat prints an entire file to the screen with no paging, so running it on a large log floods the terminal. Use head or grep to filter first.
+
+sudo
+  Flags: -u runs as a specified user. -i starts a login shell.
+  Example: sudo systemctl status ssh
+  Risk/note: Do not reach for sudo just to make Permission denied messages disappear. That hides them for the wrong reason and bypasses the point, which is understanding that stdout and stderr are separate streams.
+
+rm
+  Flags: -r recursive. -f force with no prompt. -i prompts before each removal.
+  Example: rm errors.txt
+  Risk/note: There is no recycle bin. A misplaced rm in the wrong directory is unrecoverable, which is why pwd comes first. Combining -r and -f removes an entire tree with no confirmation.
+
+2>
+  Flags: None. Redirects stderr only, leaving stdout untouched.
+  Example: find /etc -name "*.conf" 2>errors-only.txt
+  Risk/note: Useful when you want to capture the error stream separately for review rather than discarding it. Discarding with 2>/dev/null throws the errors away permanently.
+
+/dev/null
+  Flags: None. A special device file that silently discards anything written to it.
+  Example: find /etc -name "*.conf" 2>/dev/null
+  Risk/note: Known as the bit bucket. Anything sent here is gone with no record, so never redirect output you have not already reviewed.
+
+grep -c
+  Flags: -c counts matching lines in a file instead of printing them.
+  Example: grep -c "Failed password" /var/log/auth.log
+  Risk/note: This counts real events inside a file. Counting filenames with ls piped into grep and wc is a different measurement entirely. Reporting one as the other misleads whoever receives your escalation.
+
+CVNP1601 Week 2 Command Cheat Sheet
+
+vim modes
+  Flags: No flags. Normal mode is the default on open and every key is a command. Insert mode is entered with i and every key becomes text. Esc returns to normal mode from anywhere.
+  Example: vim ~/server-note.txt
+  Risk/note: The bottom left of the screen shows -- INSERT -- while in insert mode and is blank in normal mode. Check it before typing. Commands pressed in insert mode are written into the file as literal text instead of running, which corrupts the file quietly and looks like the editor ignoring you.
+
+vim key commands
+  Flags: No flags. :w writes the file without closing. :wq writes and quits. :q! quits and discards every change since the last write. dd deletes the current line. u undoes the last change. /pattern searches forward and n jumps to the next match. G moves to the last line. o opens a new line below and enters insert mode. cw changes the word under the cursor.
+  Example: /Status
+  Risk/note: Ex commands are case sensitive, so :W returns E492 Not an editor command rather than saving. Cursor position decides what cw and dd act on, so confirm where the cursor is sitting before pressing either one.
+
+nano save and exit
+  Flags: No flags. Ctrl+O writes the file and prompts for the filename, confirmed with Enter. Ctrl+X exits and prompts to save if there are unsaved changes. The shortcut bar along the bottom uses ^ to mean Ctrl.
+  Example: nano ~/quick-edit.txt
+  Risk/note: nano has no modes, so everything typed goes straight into the file. That makes it faster for short operational notes but it also means there is no command mode to fall back to and no equivalent of the :q! escape hatch without answering the exit prompt correctly.
+
+grep -r
+  Flags: -r searches recursively through a directory and its subdirectories instead of a single file.
+  Example: grep -r "PermitRootLogin" /etc/ssh/ 2>/dev/null
+  Risk/note: Recursive search across a large tree such as /etc pulls in unrelated matches and can return a single regex line thousands of characters wide, which makes screenshot evidence unreadable. Narrow the starting directory. A recursive grep that returns nothing may be hitting permission denied on root only files rather than finding nothing, and 2>/dev/null hides that distinction.
+
+grep -v
+  Flags: -v inverts the match and prints every line that does not match the pattern.
+  Example: grep -v "^#" /etc/ssh/sshd_config | grep -v "^$"
+  Risk/note: Two inverted greps in sequence strip comment lines and blank lines, leaving the active directives. The result is not always the effective configuration. An Include line pulls in additional files, and OpenSSH keeps the first value it reads, so a drop in file listed near the top of the config overrides directives further down.
+
+grep -E
+  Flags: -E enables extended regular expressions so the pipe character works as an OR between patterns. -i makes the match case insensitive and is commonly combined as -iE.
+  Example: grep -iE "error|warning" /var/log/syslog | head -10
+  Risk/note: The pattern matches anywhere in the line, including inside text that only quotes the search term. A sudo audit entry recording a grep command will match the string being searched for, which produces hits that are records of the search rather than the events being looked for. Filter by process before counting.
+
+awk field extraction and -F:
+  Flags: -F sets the field delimiter, so -F: splits on colons instead of the default whitespace. Fields are numbered from $1 to $NF. print outputs the fields listed. A pattern before the braces filters which lines the action runs on.
+  Example: awk -F: '$3 >= 1000 {print $1, $3}' /etc/passwd
+  Risk/note: Field numbers only hold for one log or file format. Count the fields on a real line before trusting a field number copied from documentation, because a timestamp written as one ISO value shifts every later field compared to a timestamp split across three. Filtering on UID >= 1000 is a convention for user accounts, not a guarantee, since nobody sits at 65534 and is returned by that filter.
+
+CVNP1601 Week 5 Command Cheat Sheet
+
+apt update
+  Flags: No flags. Downloads the current package lists from the repositories configured on the system. It does not install or upgrade anything.
+  Example: sudo apt update
+  Risk/note: Installing from a stale package index can pull an outdated version or fail to find the package at all. Run it before every install and put it first in any setup script.
+
+apt install -y
+  Flags: -y answers yes to the confirmation prompt automatically.
+  Example: sudo apt install -y nginx
+  Risk/note: Without -y a script stops at the prompt and waits for keyboard input that never comes on an unattended run. The flag also approves every additional package apt decides to pull in, such as nginx-common alongside nginx, so know what the install brings with it before scripting it.
+
+apt purge vs apt remove
+  Flags: No flags. remove deletes the package but leaves its configuration files on the system. purge deletes the package and its configuration files.
+  Example: sudo apt purge nginx
+  Risk/note: A package taken out with remove shows rc in dpkg -l and its old configuration is still there if it is reinstalled. Use purge when the goal is a true clean state. Without -y, purge prompts for confirmation, and any answer other than Y aborts it with a nonzero exit, which also makes && skip the next command.
+
+apt autoremove
+  Flags: -y answers yes to the confirmation prompt automatically.
+  Example: sudo apt autoremove -y
+  Risk/note: Orphaned dependencies are packages installed automatically to satisfy another package and no longer needed by anything. Purging nginx left nginx-common behind until autoremove took it out. autoremove removes rather than purges, so configuration files belonging to those dependencies can stay on the system.
+
+dpkg -l
+  Flags: -l lists packages matching the name given along with their state. The first two characters are the status: ii means installed and working, rc means removed with configuration files still present, un means unknown or not installed.
+  Example: dpkg -l nginx
+  Risk/note: ii only proves the package files are installed. It says nothing about whether the service is running or enabled, which has to be confirmed separately with systemctl.
+
+systemctl lifecycle
+  Flags: No flags. start runs the service now. stop halts it now. status shows the Loaded and Active lines plus recent log entries. enable sets it to start at boot. disable removes that. enable --now enables it for boot and starts it immediately in one step.
+  Example: sudo systemctl enable --now nginx
+  Risk/note: start and enable are independent, so a service that was started but never enabled will not come back after a reboot. On this Ubuntu VM nginx was already enabled right after install, with preset: enabled on the Loaded line, so check is-enabled instead of assuming a new service is disabled. Security: enabling a network daemon keeps a listening service exposed across every reboot, so only enable what the server actually needs.
+
+systemctl is-active --quiet
+  Flags: --quiet suppresses the printed active or inactive result so only the exit code comes back: 0 if the service is active, nonzero if it is not.
+  Example: if systemctl is-active --quiet nginx; then echo "SUCCESS"; fi
+  Risk/note: Built for scripts, since an if statement reads the exit code directly. Without a check like this a setup script can finish with no visible errors while the service never started. Pair it with exit 1 on failure so the problem surfaces instead of passing silently.
+
+$?
+  Flags: No flags. Holds the exit code of the last command that ran. 0 means success and any nonzero value means failure.
+  Example: systemctl is-active --quiet nginx; echo $?
+  Risk/note: $? is overwritten by every command that runs, including echo, so read it immediately after the command being checked or save it to a variable first.
+
+shebang (#!/bin/bash)
+  Flags: No flags. The first line of a script, telling the system which interpreter to use when the file is executed directly.
+  Example: #!/bin/bash
+  Risk/note: It only works as the very first line with nothing before it, not even a blank line. Running a script as bash script.sh ignores the shebang because the interpreter was named on the command line, so a broken shebang can go unnoticed until someone runs the file as ./script.sh.
+
+CVNP1601 Week 6 Command Cheat Sheet
+
+variable assignment
+  Flags: No flags. NAME="value" stores a value in a variable. There can be no spaces around the = sign.
+  Example: BACKUP_DIR="/var/backups/etc"
+  Risk/note: A space around the = makes bash treat the name as a command, so the error reads command not found instead of pointing at the assignment.
+
+quoting variables
+  Flags: No flags. "$VAR" keeps the value as one argument. ${VAR} separates the variable name from text around it.
+  Example: tar -czf "$ARCHIVE" /etc
+  Risk/note: An unquoted $VAR splits on spaces, so a path containing a space becomes separate arguments and the command breaks in ways that are hard to reproduce.
+
+command substitution $()
+  Flags: No flags. Runs the command inside the parentheses and puts its output in its place.
+  Example: TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+  Risk/note: The command runs once when that line executes, so a timestamp captured at the top of a script stays the same for the whole run.
+
+function
+  Flags: No flags. name() { commands; } defines a function. Call it by name. $1 is the first argument passed to it.
+  Example: log() { echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" | tee -a "$LOG"; }
+  Risk/note: A function must be defined above the line that calls it, or bash reports command not found when the script reaches the call.
+
+tee -a
+  Flags: -a appends to the file. Without -a, tee overwrites the file on every call.
+  Example: echo "Backup started" | tee -a /var/log/backup_etc.log
+  Risk/note: tee writes to the terminal and the file at the same time, so unattended runs still leave a record. It needs write permission on the file, so a regular user cannot append to a log under /var/log.
+
+exit codes
+  Flags: No flags. $? holds the exit code of the last command. 0 means success and any nonzero value means failure. exit 1 ends a script with a failure status.
+  Example: exit 1
+  Risk/note: The exit code of a pipeline comes from its last command, so tar piped into tee reports the exit code of tee even when tar failed.
+
+if blocks
+  Flags: No flags. if command; then ... else ... fi runs the command and branches on its exit code.
+  Example: if tar -czf "$ARCHIVE" /etc 2>/dev/null; then log "Backup succeeded"; else log "ERROR: Backup failed"; exit 1; fi
+  Risk/note: Test the command directly in the if condition. A missing fi causes a syntax error at the end of the file.
+
+git init
+  Flags: No flags needed. Creates a .git directory that turns the current directory into a repository.
+  Example: git init
+  Risk/note: Running it from the home directory turns the whole home directory into a repository, which can start tracking .ssh and shell history. Run it inside the project directory.
+
+git add
+  Flags: -A stages every change in the working tree.
+  Example: git add backup_etc.sh
+  Risk/note: Stage files by name. git add -A can stage keys or credentials, and once committed they stay in the history even if the file is deleted later.
+
+git commit
+  Flags: -m supplies the commit message on the command line.
+  Example: git commit -m "Create backup script with logging"
+  Risk/note: A message like update tells a reviewer nothing. Each message should describe the specific change so the history works as an audit trail.
+
+git log
+  Flags: --oneline shows the short hash and message for each commit on one line.
+  Example: git log --oneline
+  Risk/note: Audit note: the commit history proves what changed, when, and in what order. A script with no Git history cannot prove what changed between the version that worked and the version that broke.
