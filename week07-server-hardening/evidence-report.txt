@@ -1,0 +1,37 @@
+=== CVNP1601-W07 Evidence Report ===
+Generated : 2026-10-08 20:21:51
+Host      : 1601
+Week      : 07
+Folder    : /home/steelbyte/cvnp1601-portfolio/week07-server-hardening
+
+[EFFECTIVE SSHD CONFIG — sudo sshd -T]
+  pubkeyauthentication yes
+  passwordauthentication no
+
+[UFW STATUS — sudo ufw status verbose]
+  Status: active
+  Logging: on (low)
+  Default: deny (incoming), allow (outgoing), disabled (routed)
+  New profiles: skip
+  
+  To                         Action      From
+  --                         ------      ----
+  22/tcp                     ALLOW IN    Anywhere                  
+  22/tcp (v6)                ALLOW IN    Anywhere (v6)             
+
+[SENSITIVE FILE PERMISSIONS — ls -la]
+  drwx------ 2 steelbyte steelbyte 4096 Aug 27 20:52 /home/steelbyte/.ssh
+  -rw------- 1 steelbyte steelbyte 295 Sep 22 16:57 /home/steelbyte/.ssh/authorized_keys
+  -rwx------ 1 steelbyte steelbyte 0 Oct  8 18:19 /home/steelbyte/scripts/harden.sh
+
+[REQUIRED FILES]
+  README.md : FOUND (11845 bytes)
+  week1-cheatsheet.txt : FOUND (22487 bytes)
+  tech-lead-note.md : FOUND (1686 bytes)
+  troubleshooting-narrative.md : FOUND (2157 bytes)
+  week7-diagnosis.md : FOUND (3901 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing — never commit private key contents.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week07-server-hardening/.
