@@ -1,0 +1,59 @@
+=== CVNP1601-W09 Evidence Report ===
+Generated : 2026-10-22 21:55:22
+Host      : 1601
+Week      : 09
+Folder    : /home/steelbyte/cvnp1601-portfolio/week09-process-triage
+
+[PROCESS SNAPSHOT — ps aux --sort=-%cpu (top 10)]
+  USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+  steelby+   26319  100  0.1  10892  4580 pts/0    R+   21:55   0:00 ps aux --sort=-%cpu
+  root       24062  0.0  1.0 653936 41828 ?        Ssl  06:34   0:36 /usr/bin/python3 /usr/bin/fail2ban-server -xf start
+  root         780  0.0  0.1  80720  4140 ?        Ssl  Oct15   5:08 /usr/sbin/qemu-ga
+  root       26115  0.0  0.0      0     0 ?        I    21:30   0:00 [kworker/u8:4-events_unbound]
+  root       26066  0.0  0.0      0     0 ?        I    20:53   0:00 [kworker/u8:2-events_unbound]
+  root       24007  0.0  0.6 223592 27332 ?        SLsl 06:34   0:05 /sbin/multipathd -d -s
+  root       26087  0.0  0.0      0     0 ?        I    21:10   0:00 [kworker/u8:3-events_power_efficient]
+  root       24000  0.0  1.1 554872 47228 ?        Ssl  06:34   0:03 /usr/libexec/fwupd/fwupd
+  root       25634  0.0  0.0      0     0 ?        I    16:30   0:01 [kworker/3:2-events]
+
+[NGINX SERVICE STATE]
+  is-active : active
+  is-enabled: enabled
+
+[RECENT JOURNAL — journalctl -u nginx -n 20 --no-pager]
+  Oct 15 15:24:36 1601 systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+  -- Boot 9b8befc3e4be480aa51572d153c0335a --
+  Oct 15 17:01:23 1601 systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+  Oct 15 17:01:25 1601 systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+  Oct 22 16:27:00 1601 systemd[1]: Stopping nginx.service - A high performance web server and a reverse proxy server...
+  Oct 22 16:27:00 1601 systemd[1]: nginx.service: Deactivated successfully.
+  Oct 22 16:27:00 1601 systemd[1]: Stopped nginx.service - A high performance web server and a reverse proxy server.
+  Oct 22 16:27:00 1601 systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+  Oct 22 16:27:00 1601 nginx[25612]: 2026/10/22 16:27:00 [emerg] 25612#25612: unexpected "}" in /etc/nginx/nginx.conf:10
+  Oct 22 16:27:00 1601 nginx[25612]: nginx: configuration file /etc/nginx/nginx.conf test failed
+  Oct 22 16:27:00 1601 systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
+  Oct 22 16:27:00 1601 systemd[1]: nginx.service: Failed with result 'exit-code'.
+  Oct 22 16:27:00 1601 systemd[1]: Failed to start nginx.service - A high performance web server and a reverse proxy server.
+  Oct 22 16:28:25 1601 systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+  Oct 22 16:28:25 1601 systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
+  Oct 22 16:28:25 1601 nginx[25626]: 2026/10/22 16:28:25 [emerg] 25626#25626: unexpected "}" in /etc/nginx/nginx.conf:10
+  Oct 22 16:28:25 1601 nginx[25626]: nginx: configuration file /etc/nginx/nginx.conf test failed
+  Oct 22 16:28:25 1601 systemd[1]: nginx.service: Failed with result 'exit-code'.
+  Oct 22 16:28:25 1601 systemd[1]: Failed to start nginx.service - A high performance web server and a reverse proxy server.
+  Oct 22 16:31:30 1601 systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+  Oct 22 16:31:30 1601 systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+
+[REQUIRED FILES]
+  README.md : FOUND (12541 bytes)
+  week1-cheatsheet.txt : FOUND (28752 bytes)
+  tech-lead-note.md : FOUND (1555 bytes)
+  troubleshooting-narrative.md : FOUND (1976 bytes)
+  incident-worklog.md : FOUND (1132 bytes)
+  week9-diagnosis.md : FOUND (2611 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week09-process-triage/.
+Remember to also commit your timestamped journalctl capture file from Task 4 — it is not
+checked above because its filename includes a timestamp, but it is still required.
