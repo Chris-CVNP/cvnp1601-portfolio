@@ -1,0 +1,26 @@
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether bc:24:11:a4:4e:af brd ff:ff:ff:ff:ff:ff
+    altname enp0s18
+    inet 10.10.50.103/24 metric 100 brd 10.10.50.255 scope global dynamic ens18
+       valid_lft 3866sec preferred_lft 3866sec
+    inet6 fe80::be24:11ff:fea4:4eaf/64 scope link 
+       valid_lft forever preferred_lft forever
+---
+default via 10.10.50.1 dev ens18 
+default via 10.10.50.1 dev ens18 proto dhcp src 10.10.50.103 metric 100 
+10.10.50.0/24 dev ens18 proto kernel scope link src 10.10.50.103 metric 100 
+10.10.50.1 dev ens18 proto dhcp scope link src 10.10.50.103 metric 100 
+---
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+LISTEN 0      4096         0.0.0.0:22        0.0.0.0:*          
+LISTEN 0      511          0.0.0.0:80        0.0.0.0:*          
+LISTEN 0      4096      127.0.0.54:53        0.0.0.0:*          
+LISTEN 0      4096   127.0.0.53%lo:53        0.0.0.0:*          
+LISTEN 0      4096            [::]:22           [::]:*          
+LISTEN 0      511             [::]:80           [::]:*          
