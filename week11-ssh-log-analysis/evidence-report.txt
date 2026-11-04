@@ -1,0 +1,34 @@
+=== CVNP1601-W11 Evidence Report ===
+Generated : 2026-11-04 02:23:35
+Host      : 1601
+Week      : 11
+Folder    : /home/[REDACTED]/cvnp1601-portfolio/week11-ssh-log-analysis
+
+[LOG SOURCE — auth.log presence]
+  /var/log/auth.log present (125652 bytes)
+
+[SSH JOURNAL UNIT — journalctl -u ssh/sshd]
+  unit 'ssh' returned entries:
+    Nov 04 02:21:44 1601 sshd[57974]: pam_unix(sshd:session): session opened for user [REDACTED](uid=1000) by [REDACTED](uid=0)
+    Nov 04 02:21:44 1601 sshd[57974]: pam_unix(sshd:session): session closed for user [REDACTED]
+    Nov 04 02:21:50 1601 sshd[58076]: Accepted publickey for [REDACTED] from 10.10.65.11 port 1523 ssh2: ED25519 SHA256:[REDACTED]
+    Nov 04 02:21:50 1601 sshd[58076]: pam_unix(sshd:session): session opened for user [REDACTED](uid=1000) by [REDACTED](uid=0)
+    Nov 04 02:21:50 1601 sshd[58076]: pam_unix(sshd:session): session closed for user [REDACTED]
+
+[FAILED PASSWORD COUNT — live sanity check]
+  grep -c "Failed password" /var/log/auth.log => 0
+0
+
+[REQUIRED FILES]
+  README.md : FOUND (13655 bytes)
+  week1-cheatsheet.txt : FOUND (39976 bytes)
+  attack-summary.md : FOUND (1011 bytes)
+  tech-lead-note.md : FOUND (1047 bytes)
+  troubleshooting-narrative.md : FOUND (2447 bytes)
+  week11-diagnosis.md : FOUND (3642 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week11-ssh-log-analysis/.
+Screenshots of pipeline evidence are not checked above (binary/non-deterministic filenames) but are still required per the Submission Checklist.
