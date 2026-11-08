@@ -1,0 +1,56 @@
+=== CVNP1601-W12 Evidence Report ===
+Generated : 2026-11-08 18:28:18
+Host      : 1601
+Week      : 12
+Folder    : /home/steelbyte/cvnp1601-portfolio/week12-health-report
+
+[HEALTH_REPORT.SH — sanity check]
+  Shebang present: #!/bin/bash
+  bash -n syntax check: OK
+  Executable: yes (-rwx------)
+
+[CRON SCHEDULE — crontab -l]
+  crontab -l output:
+    # Edit this file to introduce tasks to be run by cron.
+    # 
+    # Each task to run has to be defined through a single line
+    # indicating with different fields when the task will be run
+    # and what command to run for the task
+    # 
+    # To define the time you can provide concrete values for
+    # minute (m), hour (h), day of month (dom), month (mon),
+    # and day of week (dow) or use '*' in these fields (for 'any').
+    # 
+    # Notice that tasks will be started based on the cron's system
+    # daemon's notion of time and timezones.
+    # 
+    # Output of the crontab jobs (including errors) is sent through
+    # email to the user the crontab file belongs to (unless redirected).
+    # 
+    # For example, you can run a backup of all your user accounts
+    # at 5 a.m every week with:
+    # 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+    # 
+    # For more information see the manual pages of crontab(5) and cron(8)
+    # 
+    # m h  dom mon dow   command
+    
+    0 6 * * 0 /home/steelbyte/scripts/disk_report.sh >> /home/steelbyte/logs/disk_report_cron.log 2>&1
+    
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    0 6 * * * /home/steelbyte/scripts/health_report.sh >> /home/steelbyte/reports/health_cron.log 2>&1
+
+[REQUIRED FILES]
+  README.md : FOUND (17406 bytes)
+  week1-cheatsheet.txt : FOUND (41242 bytes)
+  health_report.sh : FOUND (2115 bytes)
+  tech-lead-note.md : FOUND (1497 bytes)
+  troubleshooting-narrative.md : FOUND (3445 bytes)
+  week12-diagnosis.md : FOUND (4086 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week12-health-report/.
+Screenshots of manual baseline, cron, and report output are not checked above (binary/non-deterministic
+filenames) but are still required per the Submission Checklist.
