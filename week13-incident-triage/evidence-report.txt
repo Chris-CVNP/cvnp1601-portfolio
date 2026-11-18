@@ -1,0 +1,31 @@
+=== CVNP1601-W13 Evidence Report ===
+Generated : 2026-11-18 17:50:57
+Host      : 1601
+Week      : 13
+Folder    : /home/steelbyte/cvnp1601-portfolio/week13-incident-triage
+
+[SERVICE STATE — systemctl is-active/is-enabled nginx]
+  is-active check failed (nginx may not be installed on this host): failed
+  is-enabled: enabled
+
+[DISK STATE — df -h /var]
+  Filesystem                         Size  Used Avail Use% Mounted on
+  /dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  3.3G  6.0G  36% /
+
+[OWNERSHIP STATE — ls -ld /var/www/html]
+  drwxr-xr-x 2 www-data www-data 4096 Sep 11 22:52 /var/www/html
+
+[REQUIRED FILES]
+  README.md : FOUND (16560 bytes)
+  week1-cheatsheet.txt : FOUND (43036 bytes)
+  post-incident-report.md : FOUND (2666 bytes)
+  tech-lead-note.md : FOUND (1489 bytes)
+  troubleshooting-narrative.md : FOUND (2935 bytes)
+  week13-diagnosis.md : FOUND (4002 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week13-incident-triage/.
+Screenshots of triage evidence for all three symptoms are not checked above (binary/non-deterministic
+filenames) but are still required per the Submission Checklist.
