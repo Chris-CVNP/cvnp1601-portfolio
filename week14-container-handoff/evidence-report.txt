@@ -1,0 +1,32 @@
+=== CVNP1601-W14 Evidence Report ===
+Generated : 2026-11-21 02:56:07
+Host      : 1601
+Week      : 14
+Folder    : /home/steelbyte/cvnp1601-portfolio/week14-container-handoff
+
+[RUNTIME STATE — docker --version / docker ps]
+  version   : Docker version 29.10.0, build fdd4b8e
+  CONTAINER ID   IMAGE               COMMAND                  CREATED             STATUS             PORTS                                     NAMES
+  1a6020b8b6b8   nginx:1.25-alpine   "/docker-entrypoint.…"   About an hour ago   Up About an hour   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   helpdesk-web
+
+[VOLUME STATE — docker volume ls]
+  DRIVER    VOLUME NAME
+  local     helpdesk-data
+
+[HOST PORT STATE — ss -tlnp :8080]
+  LISTEN 0      4096         0.0.0.0:8080      0.0.0.0:*          
+LISTEN 0      4096            [::]:8080         [::]:*          
+
+[REQUIRED FILES]
+  README.md : FOUND (20777 bytes)
+  docker-run.txt : FOUND (192 bytes)
+  tech-lead-note.md : FOUND (1425 bytes)
+  troubleshooting-narrative.md : FOUND (3661 bytes)
+  week14-diagnosis.md : FOUND (4985 bytes)
+
+[SECRET SCAN]
+  No obvious secret/token patterns detected. Still manually review every file before committing.
+
+Commit this file (evidence-report.txt) to your GitHub repo under week14-container-handoff/.
+Screenshots of container launch/verification evidence are not checked above (binary/non-deterministic
+filenames) but are still required per the Submission Checklist.
